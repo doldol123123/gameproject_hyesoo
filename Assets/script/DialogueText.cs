@@ -14,6 +14,15 @@ public class DialogueText : MonoBehaviour
     public Image DialogueBox;
     public Image ButtonBox;
 
+    public Text NameText;
+
+    public Animator Portrait;
+
+    private const string SPEAKER_TAG = "speaker";
+    private const string PORTRAIT_TAG = "portrait";
+
+
+
 
 
 
@@ -21,27 +30,31 @@ public class DialogueText : MonoBehaviour
     void Start()
     {
 
-        DialogueBox.gameObject.SetActive(true);
+        //DialogueBox.gameObject.SetActive(true);
+        //NameText.gameObject.SetActive(true);
+
 
         story = new Story(inkJSONAsset.text);
 
-        Text storyText = Instantiate(text) as Text;
-        storyText.text = loadStoryChunk();
-        storyText.transform.SetParent(DialogueBox.transform, false);
+        //HandleTag(story.currentTags);
 
-        foreach (Choice Choice in story.currentChoices)
-        {
-            Button choiceButton = Instantiate(button) as Button;
-            Text choiceText = button.GetComponentInChildren<Text>();
-            choiceText.text = Choice.text;
-            choiceButton.transform.SetParent(ButtonBox.transform, false);
+        //Text storyText = Instantiate(text) as Text;
+        //storyText.text = loadStoryChunk();
+        //storyText.transform.SetParent(DialogueBox.transform, false);
 
-            choiceButton.onClick.AddListener(delegate
-            {
-                chooseStoryChoice(Choice);
-            });
+        //foreach (Choice Choice in story.currentChoices)
+        //{
+        //    Button choiceButton = Instantiate(button) as Button;
+        //    Text choiceText = button.GetComponentInChildren<Text>();
+        //    choiceText.text = Choice.text;
+        //    choiceButton.transform.SetParent(ButtonBox.transform, false);
 
-        }
+        //    choiceButton.onClick.AddListener(delegate
+        //    {
+        //        chooseStoryChoice(Choice);
+        //    });
+
+        //}
     }
 
     // Update is called once per frame
@@ -60,7 +73,10 @@ public class DialogueText : MonoBehaviour
         {
             if (story.canContinue)
             {
+
+                Portrait.gameObject.SetActive(true);
                 DialogueBox.gameObject.SetActive(true);
+                NameText.gameObject.SetActive(true);
                 clearUI();
 
                 Debug.Log("스페이스바");
@@ -69,6 +85,8 @@ public class DialogueText : MonoBehaviour
                 Text storyText = Instantiate(text) as Text;
                 storyText.text = loadStoryChunk();
                 storyText.transform.SetParent(DialogueBox.transform, false);
+
+                HandleTag(story.currentTags);
 
                 foreach (Choice Choice in story.currentChoices)
                 {
@@ -88,12 +106,38 @@ public class DialogueText : MonoBehaviour
             else
             {
                 DialogueBox.gameObject.SetActive(false);
+                NameText.gameObject.SetActive(false);
+                Portrait.gameObject.SetActive(false);
             }
             
 
 
         }
     }
+
+    void HandleTag(List<string> currentTags)
+    {
+        foreach(string tag in currentTags)
+        {
+            string[] splitTag = tag.Split(':');
+
+            string tagKey = splitTag[0]; //trim
+            string tagValue = splitTag[1];
+            
+            switch(tagKey)
+            {
+                case SPEAKER_TAG:
+                    NameText.text = tagValue;
+                    break;
+                case PORTRAIT_TAG:
+                    Portrait.Play(tagValue);
+                    break;
+            }
+
+
+        }
+    }
+
 
     void chooseStoryChoice(Choice Choice)
     {
