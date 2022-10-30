@@ -30,31 +30,8 @@ public class DialogueText : MonoBehaviour
     void Start()
     {
 
-        //DialogueBox.gameObject.SetActive(true);
-        //NameText.gameObject.SetActive(true);
-
-
         story = new Story(inkJSONAsset.text);
 
-        //HandleTag(story.currentTags);
-
-        //Text storyText = Instantiate(text) as Text;
-        //storyText.text = loadStoryChunk();
-        //storyText.transform.SetParent(DialogueBox.transform, false);
-
-        //foreach (Choice Choice in story.currentChoices)
-        //{
-        //    Button choiceButton = Instantiate(button) as Button;
-        //    Text choiceText = button.GetComponentInChildren<Text>();
-        //    choiceText.text = Choice.text;
-        //    choiceButton.transform.SetParent(ButtonBox.transform, false);
-
-        //    choiceButton.onClick.AddListener(delegate
-        //    {
-        //        chooseStoryChoice(Choice);
-        //    });
-
-        //}
     }
 
     // Update is called once per frame
