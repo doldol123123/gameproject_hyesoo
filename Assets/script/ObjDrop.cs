@@ -2,41 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class ObjDrop : MonoBehaviour
+public class ObjDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
-    //Image sr;
-    //Item item;
+    
 
-    //public void InitItem(Item i)
-    //{
-    //    item = i;
-    //    sr = GetComponent<Image>();
-    //    sr.sprite = item.itemImg;
-    //}
 
-    //private void OnMouseDown()
-    //{
-        
-    //}
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        Debug.Log("1");
+    }
 
-    //private void OnMouseDrag()
-    //{
-       
-    //}
+    public void OnDrag(PointerEventData eventData)
+    {
+        transform.position = eventData.position;
+    }
 
-    //private void OnMouseUp()
-    //{
-        
-    //}
+    public void OnDrop(PointerEventData eventData)
+    {
+        Debug.Log("3");
+    }
 
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-        
-    //}
+    public void OnEndDrag(PointerEventData eventData)
+    {
 
-    //private void OnTriggerExit2D(Collider2D collision)
-    //{
-        
-    //}
+        Debug.Log("4");
+    }
+
+    
+
+
 }
+
+
+

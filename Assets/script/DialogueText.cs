@@ -37,9 +37,7 @@ public class DialogueText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        refreshUI();
-
-
+        refreshUI(); //플레이어와 상호작용했을때 refreshUI()가 호출될수 있도록 수정하면 될듯
 
 
     }
